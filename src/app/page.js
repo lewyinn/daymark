@@ -7,160 +7,163 @@ import NextLink from "next/link";
 import { Link as ScrollLink } from "react-scroll";
 import { motion, AnimatePresence } from "framer-motion";
 import Daymark from "../../public/Logo.png";
+import Link from "next/link";
+import { BiLogoInstagramAlt, BiLogoGithub, BiLogoLinkedinSquare } from "react-icons/bi";
+
 
 const menuItems = [
-    { label: "Beranda", to: "beranda" },
+  { label: "Beranda", to: "home" },
 ];
 
 const menuVariants = {
-    hidden: {
-        opacity: 0,
-        height: 0,
+  hidden: {
+    opacity: 0,
+    height: 0,
+  },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+      when: "beforeChildren",
+      staggerChildren: 0.07,
     },
-    visible: {
-        opacity: 1,
-        height: "auto",
-        transition: {
-            duration: 0.3,
-            ease: "easeOut",
-            when: "beforeChildren",
-            staggerChildren: 0.07,
-        },
+  },
+  exit: {
+    opacity: 0,
+    height: 0,
+    transition: {
+      duration: 0.25,
+      ease: "easeIn",
     },
-    exit: {
-        opacity: 0,
-        height: 0,
-        transition: {
-            duration: 0.25,
-            ease: "easeIn",
-        },
-    },
+  },
 };
 
 const itemVariants = {
-    hidden: { opacity: 0, y: -10 },
-    visible: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16 md:h-20">
-                    {/* Logo */}
-                    <ScrollLink to="beranda" smooth spy offset={-80} className="flex items-center gap-2 cursor-pointer">
-                        <div className="w-10 h-10 md:w-12 md:h-12">
-                            <Image src={Daymark} alt="Brandly Logo" priority />
-                        </div>
-                        <span className="text-xl md:text-2xl font-bold text-[#28C3B0]">
-                            Daymark
-                        </span>
-                    </ScrollLink>
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Logo */}
+          <ScrollLink to="home" smooth spy offset={-80} className="flex items-center gap-2 cursor-pointer">
+            <div className="w-10 h-10 md:w-12 md:h-12">
+              <Image src={Daymark} alt="Brandly Logo" priority />
+            </div>
+            <span className="text-xl md:text-2xl font-bold text-[#28C3B0]">
+              Daymark
+            </span>
+          </ScrollLink>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center gap-8">
-                        {menuItems.map((item) => (
-                            <ScrollLink
-                                key={item.to}
-                                to={item.to}
-                                smooth
-                                spy
-                                offset={-80}
-                                duration={600}
-                                activeClass="active"
-                                className="nav-link cursor-pointer text-gray-800 hover:text-[#28C3B0] text-sm lg:text-base font-medium transition-colors"
-                            >
-                                {item.label}
-                            </ScrollLink>
-                        ))}
-                    </div>
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-8">
+            {menuItems.map((item) => (
+              <ScrollLink
+                key={item.to}
+                to={item.to}
+                smooth
+                spy
+                offset={-80}
+                duration={600}
+                activeClass="active"
+                className="nav-link cursor-pointer text-gray-800 hover:text-[#28C3B0] text-sm lg:text-base font-medium transition-colors"
+              >
+                {item.label}
+              </ScrollLink>
+            ))}
+          </div>
 
-                    {/* Desktop CTA */}
-                    <div className="flex gap-2">
-                      <div className="hidden md:block">
-                          <NextLink
-                              href="/sign-in"
-                              className="cursor-pointer bg-transparent border-2 border-[#28C3B0] hover:bg-[#28C3B0] text-[#28C3B0] hover:text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors">
-                              Sign in
-                          </NextLink>
-                      </div>
-                      <div className="hidden md:block">
-                          <NextLink
-                              href="/sign-up"
-                              className="cursor-pointer bg-[#28C3B0] hover:bg-[#22a899] text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors">
-                              Sign Up
-                          </NextLink>
-                      </div>
-                        
-                    </div>
+          {/* Desktop CTA */}
+          <div className="flex gap-2">
+            {/* <div className="hidden md:block">
+              <NextLink
+                href="/sign-up"
+                className="cursor-pointer bg-transparent border-2 border-[#28C3B0] hover:bg-[#28C3B0] text-[#28C3B0] hover:text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors">
+                Sign up
+              </NextLink>
+            </div> */}
+            <div className="hidden md:block">
+              <NextLink
+                href="/sign-in"
+                className="cursor-pointer bg-[#28C3B0] hover:bg-[#22a899] text-white px-6 py-2.5 rounded-full text-sm font-medium transition-colors">
+                Sign In
+              </NextLink>
+            </div>
 
-                    {/* Mobile Toggle */}
-                    <button
-                        onClick={() => setIsOpen((prev) => !prev)}
-                        className="md:hidden text-gray-700"
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setIsOpen((prev) => !prev)}
+            className="md:hidden text-gray-700"
+          >
+            {isOpen ? (
+              <HiX className="w-6 h-6" />
+            ) : (
+              <HiMenuAlt3 className="w-6 h-6" />
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu with Animation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              variants={menuVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="md:hidden overflow-hidden"
+            >
+              <div className="flex flex-col gap-4 pb-6 pt-4">
+                {menuItems.map((item) => (
+                  <motion.div key={item.to} variants={itemVariants}>
+                    <ScrollLink
+                      to={item.to}
+                      smooth
+                      spy
+                      offset={-80}
+                      duration={600}
+                      activeClass="active"
+                      className="nav-link cursor-pointer text-gray-700 text-base font-medium"
+                      onClick={() => setIsOpen(false)}
                     >
-                        {isOpen ? (
-                            <HiX className="w-6 h-6" />
-                        ) : (
-                            <HiMenuAlt3 className="w-6 h-6" />
-                        )}
-                    </button>
+                      {item.label}
+                    </ScrollLink>
+                  </motion.div>
+                ))}
+
+                <div className="flex justify-between items-center">
+                  {/* <motion.div variants={itemVariants}>
+                    <NextLink
+                      href="/sign-up"
+                      className="mt-3 inline-flex justify-center bg-transparent border-2 border-[#28C3B0] hover:bg-[#28C3B0] text-[#28C3B0] hover:text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors">
+                      Sign up
+                    </NextLink>
+                  </motion.div> */}
+                  <motion.div variants={itemVariants}>
+                    <NextLink
+                      href="/sign-in"
+                      className="mt-3 inline-flex justify-center bg-[#28C3B0] hover:bg-[#22a899] text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors">
+                      Sign in
+                    </NextLink>
+                  </motion.div>
                 </div>
 
-                {/* Mobile Menu with Animation */}
-                <AnimatePresence>
-                    {isOpen && (
-                        <motion.div
-                            variants={menuVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            className="md:hidden overflow-hidden"
-                        >
-                            <div className="flex flex-col gap-4 pb-6 pt-4">
-                                {menuItems.map((item) => (
-                                    <motion.div key={item.to} variants={itemVariants}>
-                                        <ScrollLink
-                                            to={item.to}
-                                            smooth
-                                            spy
-                                            offset={-80}
-                                            duration={600}
-                                            activeClass="active"
-                                            className="nav-link cursor-pointer text-gray-700 text-base font-medium"
-                                            onClick={() => setIsOpen(false)}
-                                        >
-                                            {item.label}
-                                        </ScrollLink>
-                                    </motion.div>
-                                ))}
-                                
-                                <div className="flex justify-between items-center">
-                                  <motion.div variants={itemVariants}>
-                                      <NextLink
-                                          href="https://wa.me/6285282932422?text=Halo%20Brandly,%20saya%20mau%20konsultasi%20tentang%20website%20anda."
-                                          className="mt-3 inline-flex justify-center bg-transparent border-2 border-[#28C3B0] hover:bg-[#28C3B0] text-[#28C3B0] hover:text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors">
-                                          Sign In
-                                      </NextLink>
-                                  </motion.div>
-                                  <motion.div variants={itemVariants}>
-                                      <NextLink
-                                          href="https://wa.me/6285282932422?text=Halo%20Brandly,%20saya%20mau%20konsultasi%20tentang%20website%20anda."
-                                          className="mt-3 inline-flex justify-center bg-[#28C3B0] hover:bg-[#22a899] text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors">
-                                          Sign Up
-                                      </NextLink>
-                                  </motion.div>
-                                </div>
-
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
-        </nav>
-    );
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </nav>
+  );
 };
 
 // ─── Floating Widget Cards ────────────────────────────────────────────────────
@@ -399,7 +402,7 @@ export default function HeroSection() {
       <Navbar />
 
       {/* Hero content */}
-      <div className="relative max-w-6xl mx-auto px-6 pt-12 md:pt-48 pb-8">
+      <div id="home" className="relative max-w-6xl mx-auto px-6 pt-28 md:pt-48 pb-32">
         {/* Floating widgets */}
         <FloatingWidget style={{ top: "160px", left: "5%" }} animDelay={300}>
           <ClockWidget />
@@ -473,6 +476,62 @@ export default function HeroSection() {
         {/* Dashboard mockup */}
         <div className="mt-14">
           <DashboardPreview />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="bg-[#092522] mt-16">
+        <div className="max-w-6xl mx-auto px-4 py-6">
+          <div className="flex flex-col items-center gap-4">
+
+            {/* Brand */}
+            <div className="flex items-center gap-2">
+              <Image
+                src={Daymark}
+                width={24}
+                height={24}
+                alt="Daymark Logo"
+                priority
+              />
+              <span className="text-xl font-semibold text-[#28C3B0]">
+                Daymark
+              </span>
+            </div>
+
+            {/* Social Media */}
+            <div className="flex items-center gap-6 text-sm text-gray-300">
+              <Link href="https://instagram.com/lewyinn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#28C3B0] transition flex flex-col justify-center items-center">
+                <BiLogoInstagramAlt className="text-2xl" />
+                Instagram
+              </Link>
+              <Link href="https://github.com/lewyinn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#28C3B0] transition flex flex-col justify-center items-center">
+                <BiLogoGithub className="text-2xl" />
+                GitHub
+              </Link>
+              <Link href="https://linkedin.com/in/lewyinn"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#28C3B0] transition flex flex-col justify-center items-center">
+                <BiLogoLinkedinSquare className="text-2xl" />
+                LinkedIn
+              </Link>
+            </div>
+
+            {/* Credit */}
+            <p className="text-xs text-gray-400">
+              © {new Date().getFullYear()} Dibuat oleh{" "}
+              <span className="text-[#28C3B0] font-medium">
+                Moch. Ridho Kurniawan (lewyinn)
+              </span>
+            </p>
+
+          </div>
         </div>
       </div>
     </section>

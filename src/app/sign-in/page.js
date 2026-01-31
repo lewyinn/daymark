@@ -242,12 +242,12 @@ export default function LoginPage() {
             {alert && <Alert type={alert.type} message={alert.message} />}
             
             {/* Logo */}
-            <div className={`relative z-10 flex items-center gap-2 mb-8 transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3"}`}>
+            <Link href='/' className={`relative z-10 flex items-center gap-2 mb-8 transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-3"}`}>
                 <div className="w-12 h-12 rounded-lg flex items-center justify-center">
                     <Image src={Daymark} width={42} height={42} alt="Daymark" />
                 </div>
                 <span className="text-xl md:text-2xl font-semibold text-gray-800 tracking-[-0.3px]">Daymark</span>
-            </div>
+            </Link>
 
             {/* Card */}
             <div className={`relative z-10 max-w-xl bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.07)] w-full px-8 py-9 transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`} style={{ transitionDelay: "100ms" }}>
