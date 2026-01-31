@@ -500,7 +500,7 @@ export default function HeroSection() {
 
             {/* Social Media */}
             <div className="flex items-center gap-6 text-sm text-gray-300">
-              <Link href="https://instagram.com/lewyinn"
+              <Link href="https://instagram.com/ridhokurnwnn"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#28C3B0] transition flex flex-col justify-center items-center">
@@ -514,7 +514,7 @@ export default function HeroSection() {
                 <BiLogoGithub className="text-2xl" />
                 GitHub
               </Link>
-              <Link href="https://linkedin.com/in/lewyinn"
+              <Link href="https://www.linkedin.com/in/moch-ridho-kurniawan/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#28C3B0] transition flex flex-col justify-center items-center">
