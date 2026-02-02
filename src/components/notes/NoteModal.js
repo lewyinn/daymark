@@ -75,7 +75,6 @@ export default function NoteModal({ note, onSave, onClose }) {
 
         // Kirim file baru
         newFiles.forEach(file => {
-            // Kalau Create pakai key 'images', kalau Update pakai 'newImages' (sesuai backend logic)
             // Biar gampang, backend POST pakai 'images', PUT pakai 'newImages'
             const key = note ? 'newImages' : 'images';
             formData.append(key, file)

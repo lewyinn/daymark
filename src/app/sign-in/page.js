@@ -308,11 +308,14 @@ export default function LoginPage() {
 
             {/* Footer */}
             <div className={`relative z-10 mt-8 flex items-center gap-3 transition-all duration-700 ease-out ${mounted ? "opacity-100" : "opacity-0"}`} style={{ transitionDelay: "400ms" }}>
-                <span className="text-[11px] text-gray-400">©Daymark 2026</span>
-                <span className="text-gray-300">·</span>
-                <a href="#" className="text-[11px] text-gray-400 hover:text-gray-600 transition-colors">Privacy Policy</a>
-                <span className="text-gray-300">·</span>
-                <a href="#" className="text-[11px] font-medium transition-colors" style={{ color: "#28C3B0" }}>Terms of Service</a>
+                <span className="text-[11px] text-gray-400">
+                    © {new Date().getFullYear()} Dibuat oleh{" "}
+                    <span className="text-[#28C3B0] font-medium">
+                        Moch. Ridho Kurniawan (lewyinn)
+                    </span>
+                </span>
+                {/* <span className="text-gray-300">·</span>
+                <span className="text-[11px] text-gray-400">©Daymark 2026 </span> */}
             </div>
         </div>
     );

@@ -1,5 +1,9 @@
+import { useState } from "react"
+import ImageLightbox from "../notes/ImageLightbox"
+
 export default function NoteCard({ note, compact = false, onEdit, onDelete }) {
-    // ... helper format date & time sama ...
+    const [selectedImage, setSelectedImage] = useState(null);
+
     const formatDate = (dateString) => {
         const date = new Date(dateString)
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
@@ -35,12 +39,20 @@ export default function NoteCard({ note, compact = false, onEdit, onDelete }) {
                                 key={idx}
                                 src={img.url}
                                 alt={`note-img-${idx}`}
+                                onClick={() => setSelectedImage(img.url)}
                                 className="w-16 h-16 object-cover rounded-lg border border-gray-100 flex-shrink-0"
                             />
                         ))}
                     </div>
                 )}
             </div>
+
+            {selectedImage && (
+                <ImageLightbox
+                    url={selectedImage}
+                    onClose={() => setSelectedImage(null)}
+                />
+            )}
 
             <div className="flex items-center gap-2 text-[10px] text-gray-400 mt-auto pt-3 border-t border-gray-50">
                 <span>{formatDate(note.createdAt)}</span>
