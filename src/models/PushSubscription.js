@@ -1,7 +1,7 @@
 import mongoose, { Schema, models } from "mongoose";
 
 const pushSchema = new Schema({
-    userId: { type: String, required: true, unique: true },
+    userId: { type: String, required: true },
     subscription: { type: Object, required: true } 
 });
 

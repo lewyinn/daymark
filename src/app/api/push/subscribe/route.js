@@ -7,7 +7,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
     try {
         const session = await getServerSession(authOptions);
-        
+
         if (!session) {
             console.log("Push Subscribe Error: Session not found");
             return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
@@ -18,13 +18,13 @@ export async function POST(req) {
         await connectMongoDB();
 
         await PushSubscription.findOneAndUpdate(
-            { 
-                userId: session.user.id, 
-                "subscription.endpoint": subscription.endpoint 
+            {
+                userId: session.user.id,
+                "subscription.endpoint": subscription.endpoint
             },
-            { 
-                userId: session.user.id, 
-                subscription 
+            {
+                userId: session.user.id,
+                subscription
             },
             { upsert: true, new: true }
         );
