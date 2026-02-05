@@ -15,7 +15,7 @@ export async function GET(req) {
     if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
         return new Response('Unauthorized', { status: 401 });
     }
-    
+
     await connectMongoDB();
     const now = new Date();
 
@@ -30,29 +30,33 @@ export async function GET(req) {
         const now = new Date();
 
         for (const minutesBefore of task.reminders) {
-            // 1. Cek apakah pengingat ini sudah pernah dikirim
             if (task.remindersSent && task.remindersSent.includes(minutesBefore)) continue;
 
-            // 2. Hitung kapan notifikasi harusnya dikirim
-            // minutesBefore = 0 berarti tepat waktu
             const targetTime = new Date(deadline.getTime() - minutesBefore * 60000);
 
-            // 3. Kirim JIKA waktu sekarang sudah mencapai atau melewati targetTime
             if (now >= targetTime) {
-                const userSub = await PushSubscription.findOne({ userId: task.userId });
+                const allSubscriptions = await PushSubscription.find({ userId: task.userId });
 
-                if (userSub) {
-                    await webpush.sendNotification(userSub.subscription, JSON.stringify({
-                        title: task.title,
-                        body: minutesBefore === 0 ? "Waktunya sekarang!" : `${minutesBefore} menit lagi!`,
-                        url: "/dashboard/tasks"
-                    }));
+                if (allSubscriptions.length > 0) {
+                    const payload = JSON.stringify({
+                        title: minutesBefore === 0 ? "Waktunya Tugas!" : `${minutesBefore} Menit Lagi!`,
+                        body: `Tugas: ${task.title}`,
+                        url: `/dashboard/tasks`
+                    });
 
-                    // 4. Update agar tidak double kirim
+                    await Promise.all(allSubscriptions.map(sub =>
+                        webpush.sendNotification(sub.subscription, payload)
+                            .catch(async (err) => {
+                                if (err.statusCode === 410 || err.statusCode === 404) {
+                                    await PushSubscription.deleteOne({ _id: sub._id });
+                                    console.log("Menghapus subscription mati.");
+                                }
+                            })
+                    ));
+
                     await Task.findByIdAndUpdate(task._id, {
                         $addToSet: { remindersSent: minutesBefore }
                     });
-                    console.log(`Notifikasi terkirim untuk: ${task.title}`);
                 }
             }
         }
