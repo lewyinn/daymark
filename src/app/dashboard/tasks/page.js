@@ -139,6 +139,20 @@ export default function TasksPage() {
         }
     }
 
+    const subscribeUser = async () => {
+        const registration = await navigator.serviceWorker.register('/sw.js');
+        const subscription = await registration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+        });
+
+        await fetch('/api/push/subscribe', { // Buat API ini untuk simpan sub ke MongoDB
+            method: 'POST',
+            body: JSON.stringify(subscription),
+            headers: { 'Content-Type': 'application/json' }
+        });
+    };
+
     // --- LOGIC UI (Filter & Stats) ---
     const filteredTasks = tasks.filter(task => {
         const matchesTab = task.status === activeTab

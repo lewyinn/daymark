@@ -9,6 +9,7 @@ const taskSchema = new Schema(
         status: { type: String, default: "pending" }, // pending, completed
         priority: { type: String, default: "medium" }, // low, medium, high
         reminders: { type: [Number], default: [] }, // Array of minutes (e.g. [60, 1440])
+        remindersSent: { type: [Number], default: [] },
     },
     { timestamps: true }
 );
