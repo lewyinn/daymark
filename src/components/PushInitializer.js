@@ -21,8 +21,6 @@ export default function PushInitializer() {
             const permission = await Notification.requestPermission();
             if (permission !== 'granted') return;
 
-            console.log("Kunci saya:", process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY);
-
             // 3. Ambil/Buat Subscription
             const subscription = await registration.pushManager.subscribe({
                 userVisibleOnly: true,
